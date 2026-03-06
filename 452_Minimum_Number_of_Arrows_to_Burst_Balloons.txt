@@ -1,0 +1,25 @@
+class Solution {
+    public int findMinArrowShots(int[][] points) {
+        // sorting in acending order [1,6] [2,8] [7,12] [10,15]
+        Arrays.sort(points,(a,b)->Integer.compare(a[1],b[1]));
+        // here we have to compare with ending 
+        int pe=points[0][1];
+        // here we take count=1 because we starting from 2nd intervals 
+
+        // ex: [[10,16],[2,8],[1,6],[7,12]]
+        // after sorting -> [1,6] ,[2,8],[7,12] ,[10,16]
+        // here pe=6 cs=2 , ce=8 here 2!> 6 so count will not increase 
+        // pe=6 cs=7 ce=12 here 7 > 6 so count=2 pe=ce
+        // pe=12 cs=10 ce=16 here 10!> 12 so count will not increase 
+        int c=1;
+        for(int i=1;i<points.length;i++){
+            int cs=points[i][0];
+            int ce=points[i][1];
+            if(cs>pe){
+                c++;
+                pe=ce;
+            }  
+        }
+        return c;
+    }
+}
